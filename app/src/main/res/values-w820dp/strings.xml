@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">天外天新闻</string>
+    <string name="error_text">数据加载有误，请稍后重试</string>
+    <string name="visitcount">人浏览</string>
+    <string name="comments">人评论</string>
+    <string name="network_error">网络错误，请检查网络</string>
+    <string name="newscome">新闻来源:</string>
+    <string name="gonggao">供稿:</string>
+    <string name="shengao">审稿:</string>
+    <string name="sheying">摄影:</string>
+</resources>
