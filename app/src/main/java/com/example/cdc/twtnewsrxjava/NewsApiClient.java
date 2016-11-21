@@ -1,12 +1,20 @@
 package com.example.cdc.twtnewsrxjava;
 
+
 import com.example.cdc.twtnewsrxjava.api.ApiUtils;
 import com.example.cdc.twtnewsrxjava.api.NewsApi;
-import com.example.cdc.twtnewsrxjava.api.NewsResponseTransformer;
+import com.example.cdc.twtnewsrxjava.model.NewsResponseTransformer;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,14 +28,26 @@ import rx.subscriptions.CompositeSubscription;
 
 public class NewsApiClient {
 
-    protected Map<Object, CompositeSubscription> mSubscriptionsMap = new HashMap<>();
+    private Map<Object, CompositeSubscription> mSubscriptionsMap = new HashMap<>();
     private NewsApi mService;
     private NewsResponseTransformer mResponseTransformer;
     private Retrofit mRetrofit;
 
     private NewsApiClient(){
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .addInterceptor(sRequestInterceptor)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .build();
+
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("http://open.twtstudio.com/api/v1/news/")
+                .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -36,6 +56,21 @@ public class NewsApiClient {
         mResponseTransformer = new NewsResponseTransformer();
     }
 
+
+    private static Interceptor sRequestInterceptor = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+
+            Request originRequest = chain.request();
+
+            Request.Builder builder = originRequest
+                    .newBuilder();
+            //        .addHeader("Authorization", PrefUtils.getReadToken());
+
+            Request request = builder.build();
+            return chain.proceed(request);
+        }
+    };
 
     private static class SingletonHolder {
         private static final NewsApiClient INSTANCE = new NewsApiClient();
@@ -81,7 +116,10 @@ public class NewsApiClient {
             subscriptions = new CompositeSubscription();
         }
         subscriptions.add(subscription);
+        //Log.i("subscriptions","----");
+
         mSubscriptionsMap.put(tag, subscriptions);
+
     }
 
     /*
@@ -96,10 +134,8 @@ public class NewsApiClient {
                 .map(mResponseTransformer)
                 .compose(ApiUtils.applySchedulers())
                 .subscribe(subscriber);
-        addSubscription(tag, subscriber);
+        addSubscription(tag, subscription);
     }
-
-
 
 
 }

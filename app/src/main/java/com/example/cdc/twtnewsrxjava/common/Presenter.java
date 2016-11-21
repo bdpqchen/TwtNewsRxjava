@@ -2,6 +2,8 @@ package com.example.cdc.twtnewsrxjava.common;
 
 import android.content.Context;
 
+import com.example.cdc.twtnewsrxjava.NewsApiClient;
+
 /**
  * Created by huangyong on 16/5/18.
  */
@@ -18,7 +20,7 @@ public abstract class Presenter {
     }
 
     public void onDestroy() {
-//        ReadApiClient.getInstance().unSubscribe(mContext);
+        NewsApiClient.getInstance().unSubscribe(mContext);
     }
 
     public void onStart() {

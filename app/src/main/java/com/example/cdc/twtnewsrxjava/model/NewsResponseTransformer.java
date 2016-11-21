@@ -1,5 +1,6 @@
-package com.example.cdc.twtnewsrxjava.api;
+package com.example.cdc.twtnewsrxjava.model;
 
+import com.example.cdc.twtnewsrxjava.api.ApiException;
 import com.example.cdc.twtnewsrxjava.bean.ApiResponse;
 
 import rx.functions.Func1;

@@ -40,7 +40,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     public void refreshItems(List<T> items) {
         mDataSet.clear();
         mDataSet.addAll(items);
-        hideFooter();
+        //hideFooter();
         notifyDataSetChanged();
     }
 
@@ -49,5 +49,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         notifyDataSetChanged();
     }
 
+    public void loadMoreItems(List<T> items){
+        mDataSet.addAll(items);
+        notifyDataSetChanged();
+    }
 
 }

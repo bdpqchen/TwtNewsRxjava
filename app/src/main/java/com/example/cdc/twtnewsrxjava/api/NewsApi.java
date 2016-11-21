@@ -15,7 +15,7 @@ import rx.Observable;
 
 public interface NewsApi  {
 
-    @GET("news/{type}/page/{pageIndex}")
+    @GET("{type}/page/{pageIndex}")
     Observable<ApiResponse<List<NewsBean>>> getNewsList(@Path("type")String type, @Path("pageIndex")String pageIndex);
 
    /* @GET("{index}")

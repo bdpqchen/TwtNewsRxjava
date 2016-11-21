@@ -7,13 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cdc.twtnewsrxjava.utils.ToastUtils;
+
 import butterknife.ButterKnife;
 
 
 /**
  * Created by huangyong on 16/5/18.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements IViewController {
 
 
     protected abstract int getLayout();
@@ -34,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
         ButterKnife.reset(this);
     }
-/*
+
     @Override
     public void toastMessage(String message) {
         ToastUtils.showMessage(getActivity(),message);
@@ -52,5 +54,5 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void dismissLoadingDialog() {
 
-    }*/
+    }
 }

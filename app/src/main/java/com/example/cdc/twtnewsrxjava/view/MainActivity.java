@@ -32,16 +32,16 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         for(int i = 1; i <= 5; i++) {
-            viewPagerAdapter.addFragement(NewsFragment.tabIndex(i));
+            viewPagerAdapter.addFragment(NewsFragment.tabIndex(i));
         }
         mViewPager.setAdapter(viewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
     }
 
@@ -62,7 +62,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
 
 
     }

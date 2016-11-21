@@ -18,13 +18,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragmentList = new ArrayList<>();
     private final String mTabTitles[] = new String[]{"天大要闻", "校园公告", "社团风采", "院系动态", "视点观察"};
 
-    public void addFragement(Fragment fragment) {
+    public void addFragment(Fragment fragment) {
         mFragmentList.add(fragment);
     }
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
-//        this.mContext = context
+        this.mContext = context;
     }
 
     @Override
