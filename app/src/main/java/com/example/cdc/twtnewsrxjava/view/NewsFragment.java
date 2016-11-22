@@ -54,7 +54,6 @@ public class NewsFragment extends PresenterFragment<NewsPresenter> implements Ne
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
-        //mSwipeRefreshLayout.setRefreshing(loading);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         //上拉加载更多
@@ -64,12 +63,6 @@ public class NewsFragment extends PresenterFragment<NewsPresenter> implements Ne
                 super.onScrolled(recyclerView, dx, dy);
                 int totalcount = linearLayoutManager.getItemCount();
                 int lastcount = linearLayoutManager.findLastVisibleItemPosition();
-                Log.i("totalcount", totalcount + "");
-                Log.i("lastcount", lastcount + "");
-                Log.i("dy", dy + "");
-                Log.i("loading", loading + "");
-
-
                 if(lastcount + 1 >= totalcount && dy>0 && !loading){
                     page++;
                     loading = true;
@@ -85,7 +78,6 @@ public class NewsFragment extends PresenterFragment<NewsPresenter> implements Ne
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
 
     @Override
     protected NewsPresenter getPresenter() {
@@ -159,9 +151,3 @@ public class NewsFragment extends PresenterFragment<NewsPresenter> implements Ne
     }
 
 }
-/*
-* 错误判断
-* 总体架构的了解
-* 错误类型
-* 点击事件的详情页
-* */

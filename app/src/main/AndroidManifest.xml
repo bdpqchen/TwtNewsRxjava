@@ -16,6 +16,7 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".view.NewsContentActivity" android:theme="@style/Theme.Design.NoActionBar"/>
 
 
     </application>

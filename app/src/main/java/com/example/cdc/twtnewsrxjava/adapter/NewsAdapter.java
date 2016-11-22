@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.cdc.twtnewsrxjava.R;
 import com.example.cdc.twtnewsrxjava.bean.NewsBean;
+import com.example.cdc.twtnewsrxjava.view.NewsContentActivity;
 
 import butterknife.InjectView;
 
@@ -43,7 +44,7 @@ public class NewsAdapter extends BaseAdapter<NewsBean> {
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
         if(holder instanceof NormalViewHolder){
             NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
             final String subject = mDataSet.get(position).subject;
@@ -59,19 +60,18 @@ public class NewsAdapter extends BaseAdapter<NewsBean> {
                 normalViewHolder.pic.setLayoutParams(relativeParams);
             }
             //设置点击事件
-/*
             normalViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, NewsContentActivity.class);
                     Bundle intentBundle = new Bundle();
-                    intentBundle.putString("index", String.valueOf(mDataSet.get(pos).getIndex()));
+                    intentBundle.putInt("index", mDataSet.get(position).index);
                     intentBundle.putString("subject", subject);
                     intent.putExtras(intentBundle);
                     mContext.startActivity(intent);
                 }
             });
-*/
+
 
             //长按事件
             normalViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

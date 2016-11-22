@@ -31,9 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IViewCon
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(getLayout());
-
         ButterKnife.inject(this);
         actionStart(this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){

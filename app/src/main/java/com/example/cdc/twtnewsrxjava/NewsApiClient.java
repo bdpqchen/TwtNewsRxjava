@@ -116,7 +116,6 @@ public class NewsApiClient {
             subscriptions = new CompositeSubscription();
         }
         subscriptions.add(subscription);
-        //Log.i("subscriptions","----");
 
         mSubscriptionsMap.put(tag, subscriptions);
 
@@ -131,6 +130,20 @@ public class NewsApiClient {
     * */
     public void getNewsList(Object tag, Subscriber subscriber, int type, int page){
         Subscription subscription = mService.getNewsList(type + "", page + "")
+                .map(mResponseTransformer)
+                .compose(ApiUtils.applySchedulers())
+                .subscribe(subscriber);
+        addSubscription(tag, subscription);
+    }
+
+    /*
+    * 获取新闻详情
+    * @param tag
+    * @param index      新闻id
+    * @param subscriber 订阅者
+    * */
+    public void getNewsContent(Object tag, Subscriber subscriber, int index){
+        Subscription subscription = mService.getNewsContent(index + "")
                 .map(mResponseTransformer)
                 .compose(ApiUtils.applySchedulers())
                 .subscribe(subscriber);

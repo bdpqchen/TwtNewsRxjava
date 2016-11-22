@@ -41,6 +41,7 @@ public class NewsApiSubscriber<T> extends Subscriber<T> {
         mContext = context;
         mOnNextListener = listener;
         mOnErrorListener = errorListener;
+
     }
 
 
@@ -97,16 +98,7 @@ public class NewsApiSubscriber<T> extends Subscriber<T> {
     @Override
     public void onNext(T t) {
         if (mOnNextListener != null) {
-
-            //ApiResponse<T> response = (ApiResponse<T>) t;
-            //Log.i("11111errorcode", response.getError_code() + "");
-            //if(response.getError_code() == -1) {
-                Log.i("=====", "onNext()");
                 mOnNextListener.onNext(t);
-            //}
-            /*}else{
-                mOnNextListener.onError("加载失败");
-            }*/
         }
     }
 

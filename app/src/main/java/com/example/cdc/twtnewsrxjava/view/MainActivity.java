@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity {
         for(int i = 1; i <= 5; i++) {
             viewPagerAdapter.addFragment(NewsFragment.tabIndex(i));
         }
+
         mViewPager.setAdapter(viewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);

@@ -2,6 +2,7 @@ package com.example.cdc.twtnewsrxjava.api;
 
 import com.example.cdc.twtnewsrxjava.bean.ApiResponse;
 import com.example.cdc.twtnewsrxjava.bean.NewsBean;
+import com.example.cdc.twtnewsrxjava.bean.NewsContentBean;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface NewsApi  {
     @GET("{type}/page/{pageIndex}")
     Observable<ApiResponse<List<NewsBean>>> getNewsList(@Path("type")String type, @Path("pageIndex")String pageIndex);
 
-   /* @GET("{index}")
-    Call<NewsContentBean> getNewsContent(@Path("index")String index);
-*/
+    @GET("{index}")
+    Observable <ApiResponse<NewsContentBean>> getNewsContent(@Path("index") String index);
+
 }
